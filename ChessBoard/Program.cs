@@ -14,7 +14,7 @@ class program
       
         // let the user write in a number 
         Console.WriteLine("Skriv in en siffra!");
-        int dimension = Int32.Parse(Console.ReadLine());
+        int dimension = UsersAnswer();
 
         // declaring two dimentional arrey representing a chessboard
         string[,] ChessBoard = new string[dimension, dimension];
@@ -59,14 +59,15 @@ class program
         Console.WriteLine("hur ska pjäsen se ut");
         string piece = Console.ReadLine();
 
-        Console.WriteLine("vilken rad ska pjäsen stå på välj mellan 0 och " + dimension);
-        int rowAnswer = Int32.Parse(Console.ReadLine());
+        Console.WriteLine($"vilken rad ska pjäsen stå på välj mellan 0 och {dimension - 1}");
+        int rowAnswer = UsersAnswer();
 
         Console.WriteLine("vilken kolumn ska pjäsen stå på");
-        int columnAnswer = Int32.Parse(Console.ReadLine());
+        int columnAnswer = UsersAnswer();
+
         // print out the pice 
         ChessBoard[rowAnswer, columnAnswer] = piece;
-        Console.WriteLine(piece);
+        
 
         // print out chessboard
         for (row = 0; row < dimension; row++)
@@ -82,19 +83,38 @@ class program
 
     }
 
-   
+    // method for erros when user write in wrong 
+    public static int UsersAnswer()
+    {
+        int result = 0;
 
-    //skrivv in siffra
+        // boolean for when user write wrong letters 
+        bool wrongAnswer = true;
+        // loop until the user get right and can continue 
+        while (wrongAnswer)
+        {
+            
+            string answer = Console.ReadLine();
+            // bool to check if the users answer is correct 
+            bool success = int.TryParse(answer, out result);
+            if (success)
+            {
+                // bool is true an break out of the loop
+                wrongAnswer = false; 
+                
+            }
+            else
+            {
+                // user gets a new chance to write in
+                Console.WriteLine("något gick fel, skriv in igen");
+            }
+           
 
-    //deklarera cjackbrädet
+        }
+        return result;
+    }
 
 
-
-    //skapar chakbrädet 
-
-    //skriv ut chackbrädet 
 }
-
-
 
 
